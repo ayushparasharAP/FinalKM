@@ -1,0 +1,122 @@
+W365 (Windows 365)
+- Cloud-based SaaS that creates Cloud PCs for users
+- Users can access Windows 10/11 from Windows, Mac, iOS, Android
+- Provides virtual desktop from Microsoft cloud
+Editions
+- Business → Small orgs, max 300 seats, simple deployment
+- Enterprise → Unlimited seats, Intune + advanced management
+- Government → US Govt cloud
+- Frontline → 1 license supports upto 3 non-concurrent users
+- For Agents → AI agent compute platform
+W365 vs AVD
+- W365 → Fixed monthly cost, simple management, Microsoft managed
+- AVD → Pay-as-you-go, Azure portal management, customer managed
+- W365 requires less VDI knowledge
+- W365 supports self-service restart/troubleshoot
+Cloud PC
+- Personal virtual PC in cloud
+- 1:1 user relationship
+- Accessible from anywhere
+- Browser/app access available
+Benefits
+- Multi-device access
+- High-speed cloud performance
+- Self-service actions
+- Consistent device state
+Admin Benefits
+- No VPN required
+- Easy provisioning
+- Region-based policies
+- Intune management
+- Endpoint monitoring
+- MFA + Conditional Access
+- RBAC security
+- Scalable resources
+W365 Business vs Enterprise
+Domain Join
+- Business: Entra ID Join only, no VNet
+- Enterprise: Azure AD Join with/without VNet
+Policy
+- Business: Intune only
+- Enterprise: GPO + Intune
+Monitoring
+- Business: Not supported
+- Enterprise: Endpoint Analytics + health alerts
+Troubleshooting
+- Business: Not supported
+- Enterprise: Intune troubleshooting support
+Enterprise Requirements
+- Intune Admin
+- Windows E3 + Entra ID P1 + W365 license
+- Azure subscription (optional for MS hosted network)
+- MEM management
+- Gallery/custom image support
+Provisioning
+- Automatic Cloud PC creation after license assignment
+- Managed through Intune
+- Uses MS hosted network or ANC
+- 1 license = 1 Cloud PC
+- Provisioning can take upto 2 hrs
+Grace Period
+- 7-day access after license removal
+- Cloud PC deleted if not reassigned
+ANC (Azure Network Connection)
+- Connects Cloud PCs to customer VNet
+- Max 50 ANC per tenant
+- Requires Intune/W365 admin role
+W365 Frontline
+- Cost-saving shared Cloud PC model
+- Two modes:
+- Dedicated
+- Shared
+Dedicated Mode
+- 1 license → upto 3 Cloud PCs
+- Only 1 active session allowed
+- Best for shift/part-time workers
+- Auto power off after sign-out
+Shared Mode
+- 1 license → 1 shared Cloud PC
+- Data deleted after sign-out
+- No concurrency buffer
+- Supports Cloud Apps
+Concurrency Buffer
+- Temporary extra session allowance
+- Max 4 times/day for 1 hour
+- Excess usage → temporary/permanent block
+Cloud Apps
+- Deliver apps without full desktop
+- Runs on Frontline Shared mode
+W365 Business
+- Max 300 users
+- No provisioning policy needed
+- Just assign license
+- No Azure subscription needed
+Downsides
+- No hybrid join
+- No custom image
+- Limited Intune support
+Provisioning States
+- Failed
+- Provisioning
+- Provisioned
+- Warning
+- Grace Period
+- Not Provisioned
+Cloud PC Resize
+- Upgrade CPU/RAM/Disk
+- No reprovision required
+- Disk downsize not supported
+- GPU resize not supported
+Cloud PC Restore
+- Point-in-time restore
+- Short-term: 4/6/12/16/24 hr
+- Long-term: every 7 days
+- Manual restore point by admin only
+Move Cloud PC
+- Move between regions/ANC/MS hosted network
+- No reprovision needed
+- Old restore points deleted
+Reprovision
+- Deletes old Cloud PC
+- Creates new Cloud PC for same user
+- Supported only for Failed/Provisioned state
