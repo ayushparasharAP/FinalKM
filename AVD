@@ -1,0 +1,294 @@
+AZURE
+Microsoft cloud computing platform
+Provides:Compute Storage Networking AnalyticsAI/ML
+Managed using:
+Azure Portal
+APIs
+Tools
+
+TENANT ID
+Unique identifier for organization in Entra ID
+Found in:
+Azure Portal - Microsoft Entra ID
+
+RESOURCE GROUP
+Logical container for Azure resources
+
+HOSTPOOL
+Collection of virtual desktops/session hosts
+
+VNET (VIRTUAL NETWORK)
+Logically isolated Azure network
+Provides secure connectivity
+
+AVD (AZURE VIRTUAL DESKTOP)
+Desktop & app virtualization service running on Azure
+AVD PREREQUISITES
+1.Azure subscription
+2.Identity provider:
+Entra ID
+AD
+3. Supported OS
+4. VNET/network connectivity
+5. Appropriate license
+6. Windows App
+
+AVD COMPONENTS
+RD Broker
+Orchestrates incoming connections
+RD Diagnostics
+Troubleshooting service
+RD Gateway
+Websocket service for RDP connectivity
+RD Web
+User-facing portal/web endpoint
+Geographical Database
+Stores:
+.rdp files
+App icons
+
+AVD CONNECTION FLOW azure AD
+1. Session host maintains outbound connection to RD Broker
+2. User requests feed
+User authenticates with Entra ID
+Gets token
+Token sent to RD Web
+RD Web queries Broker
+Broker checks Geographical DB
+Returns RDP files/icons
+3.User starts connection
+Connection goes to Azure Front Door
+Redirected to nearest Gateway
+4.Broker orchestrates session host connection
+5.Connection Types
+REVERSE CONNECT (DEFAULT)
+Uses TCP
+Gateway relays traffic
+RDP SHORTPATH
+Uses direct UDP connection
+Bypasses gateway
+
+AVD COMPONENT TYPES
+MICROSOFT MANAGED
+RD Web
+RD Broker
+RD Gateway
+RD Resource Directory
+RD Geographical DB
+RD Diagnostics
+CUSTOMER MANAGED
+Session Host
+User Identities
+Tenant
+File Share/File Server
+
+DEPLOYMENT STEPS (ENTRA JOINED)
+1. Create Resource Group
+2. Create VNET
+3. Create NAT Gateway & associate subnet
+4. Create Hostpool
+5. Create Workspace
+6. Create VMs
+7. Create Users
+8. Assign application groups
+9. Assign RBAC roles:
+Desktop Virtualization User Login
+Virtual Machine User Login
+
+IMPORTANT NOTES
+From March 31 2026 VNET defaults to private network
+One NAT Gateway - multiple subnets
+One subnet - only one NAT Gateway
+
+ENTRA JOINED RDP PROPERTY
+targetisaadjoined:i:1
+
+PATH
+Hostpool → Settings → RDP Properties → Advanced
+
+IMPORTANT DEPLOYMENT POINTS
+
+AVD Listener
+SxS Stack Listener must run continuously
+
+CHECK COMMAND
+qwinsta
+
+TYPES OF DEPLOYMENT
+Entra Joined
+Hybrid AD Joined
+
+HOSTPOOL TYPES
+1. PERSONAL
+One dedicated user per session host
+Better performance/data separation
+2. POOLED
+Multiple users on same session host
+Load balanced sessions
+
+APPLICATION GROUP
+DAG (Desktop Application Group)
+Full desktop access
+Works with pooled/personal
+RAG (RemoteApp Group)
+Individual published apps
+Pooled only
+
+WORKSPACE
+Logical grouping of application groups
+App group must be assigned to workspace
+
+AVD AGENTS
+1. RD Agent Boot Loader
+Loads AVD agent
+2. SxS Network Stack
+Maintains Broker/Gateway communication
+Listens for connections
+3. RDS Infrastructure Agent
+Checks service-to-VM communication
+4. Geneva Agent
+Monitoring/health agent
+
+IMPORTANT
+AVD uses TLS 1.2
+Agents downloadable from Microsoft
+
+HEARTBEATS
+Stack heartbeat → 1 second
+Agent heartbeat → 30 seconds
+Default heartbeat → 1000 ms
+
+UNHEALTHY SESSION
+Missing 8 heartbeats
+
+LICENSING
+RDS CAL needed for Server OS
+Microsoft E3/E5 enough for Client OS
+
+ADDING STANDALONE VM TO HOSTPOOL
+1. Connect VM
+2. Uninstall old AVD agents:
+Bootloader
+SxS Stack
+Infrastructure Agent
+Geneva Agent
+3. Download latest agents
+4. Install Bootloader then RD Agent
+5. Use registration key from hostpool
+6. VM registers to hostpool
+
+AVD VM HEALTH CHECKS
+
+Domain joined
+Domain trust
+SxS listener
+Geneva monitoring
+Metadata
+App Attach
+URL access
+FSLogix health
+
+REVERSE CONNECT
+Uses outbound HTTPS 443
+No inbound 3389 needed
+FORWARD CONNECT
+Requires inbound 3389
+
+AVD VS RDS difference
+RDS
+Collection
+Published desktop/apps
+Server OS
+Session/VDI deployment
+AVD
+Hostpool
+DAG/RAG
+Supports Client & Server OS
+Tenant based
+
+AVD FEATURES
+Multi-session support
+Defender optimized
+Desktop search optimized
+No Server Manager
+No inbound RDP required
+
+LOAD BALANCING TYPES
+
+1. BREADTH-FIRST
+Evenly distributes users
+2. DEPTH-FIRST
+Fills one VM first until max sessions reached
+
+AZURE SUBSCRIPTION
+Agreement to use Azure services
+Billing based on:
+Per-user licensing
+Resource consumption
+
+TENANT
+Dedicated Entra ID instance for organization
+
+TENANT SETUP REQUIREMENTS
+1.Azure Subscription
+2.Entra Tenant ID
+3.Global Administrator account
+
+BASTION
+Secure RDP/SSH without public IP
+
+HYBRID AVD DEPLOYMENT
+1. Create Resource Group
+2. Create VNET
+3. Create NAT Gateway
+4. Create standalone VM
+5. Install ADDS role
+6. Promote to DC
+7. Install Entra Connect
+8. Create Hostpool
+9. Create Workspace
+10. Create VMs
+11. Sync users
+12. Assign RBAC roles & application groups
+
+CLOUD
+Network of remote servers managed by third-party providers over internet
+Provides on-demand:
+Compute
+Storage
+Networking
+Applications
+Virtual machines
+
+TYPES OF CLOUD SERVICES
+1. IAAS
+User manages:
+OS
+Software
+Data
+Provider manages infrastructure
+2.PAAS
+User manages applications
+Provider manages platform & infrastructure
+
+3.SAAS
+Provider manages software/application
+User accesses application over internet
+
+TYPES OF CLOUD
+1. PUBLIC CLOUD
+Owned by third-party provider
+Resources delivered over internet
+Example:
+Microsoft Azure
+Provider manages hardware/software
+
+2.PRIVATE CLOUD
+Used by single organization only
+Can be on-premises or hosted by third party
+Uses private network
+
+3.HYBRID CLOUD
+Combination of public + private cloud
+Data/apps can move between both
+Provides flexibility & deployment options
