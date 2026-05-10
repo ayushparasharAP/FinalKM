@@ -1,4 +1,4 @@
-# FinalKM
+# RDS
 REMOTE DESKTOP SERVICES (RDS)
 MS technology that allows users to remotely access apps & desktops securely from anywhere.
 RDS DEPLOYMENT TYPES
