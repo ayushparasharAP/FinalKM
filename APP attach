@@ -1,0 +1,230 @@
+START VM ON CONNECT
+Reduces cost by turning ON session host VM only when user connects
+Works for Personal & Pooled host pools
+Required RBAC Role:
+Desktop Virtualization Power On Contributor
+Role assigned to AVD Service Principal on Subscription
+Can configure using Azure Portal/PowerShell/CLI
+
+AUTOSCALE
+Automatically turns session hosts ON/OFF based on schedule
+Used for cost optimization
+Supports Ramp Up & Ramp Down
+
+IMPORTANT
+Cannot use Autoscale with Azure Automation/Logic Apps together
+Dynamic autoscaling only supported in Azure
+One scaling plan can be assigned to multiple host pools in same RG
+One host pool can have only one scaling plan
+Diagnostics can be enabled
+Scaling plan can contain multiple schedules
+
+REQUIRED ROLE
+Desktop Virtualization Power On Off Contributor
+Assigned to AVD Service Principal on Subscription
+
+APP ATTACH
+Dynamically attaches applications to user session in AVD
+Apps not installed locally on session host
+Reduces image management overhead & cost
+Apps run inside containers for isolation/security
+
+BENEFITS OF APP ATTACH
+
+Apps delivered as RemoteApp/Desktop
+Per-user app permissions
+Same package usable across multiple host pools
+Apps can run on any session host in same Azure region
+Easy upgrades without maintenance window
+Multiple app versions supported simultaneously
+
+SUPPORTED PACKAGE TYPES
+
+MSIX → .msix / .msixbundle
+APPX → .appx / .appxbundle
+App-V
+
+MSIX APP ATTACH
+Microsoft app layering technology for AVD
+Separates apps from OS
+Dynamically delivers apps to users
+
+FEATURES OF MSIX APP ATTACH
+
+No repackaging required
+Uses streaming technology
+Strict app & OS isolation
+Supports silent installation
+OS remains unmodified
+No leftover traces after de-stage
+Faster login
+Reduced infra cost
+
+REQUIREMENTS FOR MSIX APP ATTACH
+
+1.AVD deployment with host pool
+2.Windows 10/11 single or multi-session
+3.Network share:
+Azure Files
+Azure NetApp Files
+
+4.NTFS & RBAC permissions
+5.MSIX Packaging Tool
+6.msixmgr.exe
+7.Internal/External certificate
+
+IMPORTANT
+Recommended:
+One file share per host pool
+Use Azure NetApp Files
+Avoid sharing same file share across multiple host pools
+
+APPLICATION STATE
+
+ACTIVE
+App available to user
+
+INACTIVE
+Ignored by AVD during sign in
+
+APPLICATION REGISTRATION
+
+ON-DEMAND
+Partial registration at login
+Full registration when app launches
+
+REGISTER AT LOGON
+Full registration during login
+Increases login time
+
+DISK IMAGE TYPES
+CIMFS (Recommended)
+VHD
+VHDX
+
+WHY CIMFS?
+Faster
+Lower CPU/memory usage
+
+CIMFS STRUCTURE
+.cim - Metadata
+objectid-* files
+region-* files - Actual app data
+
+IMPORTANT
+All MSIX/Appx packages contain certificates
+Certificate must be trusted
+Self-signed certificates supported with proper trust chain
+
+RBAC ROLE ASSIGNMENT
+
+AZURE FILES
+Entra Joined
+Reader & Data Access role
+
+Hybrid (ADDS + Entra)
+Storage File Data SMB Share Reader
+Default share-level permission
+
+TERMINOLOGIES
+MSIX = Packaging format
+App Attach = Delivery mechanism
+
+EXPANDING MSIX
+
+1. Get .msix package
+2. Rename to .zip
+3. Extract files
+4. Create VHD/CIM
+5. Mount VHD
+6. Initialize disk
+7. Create partition
+8. Format partition
+9. Copy extracted files
+10. Apply ACL using msixmgr
+11. Unmount VHD/CIM
+
+STAGING
+Mount VHD/CIM
+Notify OS package available
+
+REGISTRATION PROCESS
+REGULAR
+Fully registered
+
+DELAYED
+Partially registered
+
+DEREGISTER
+
+Removes registered non-running app for user
+Happens during sign out
+User app data saved to profile
+
+DE-STAGE
+Removes OS references
+Unmounts package if unused
+
+MSIX PACKAGE STRUCTURE
+comes under pacakage payload
+APP PAYLOAD
+Contains application files/assets
+
+comes under footprint path
+APPXBLOCKMAP.XML
+Contains file indexes & hashes
+Used for integrity verification
+
+APPXMANIFEST.XML
+Contains package metadata
+Identity, dependencies, capabilities, properties
+
+APPSIGNATURE.P7X
+Digital signature file
+Required before package usage
+
+CODEINTEGRITY
+Validates package integrity during deployment
+
+RDP SHORTPATH FOR AVD
+Uses UDP-based transport between client & session host
+Improves reliability & latency
+
+DEFAULT BEHAVIOR
+Starts with TCP reverse connect
+Attempts UDP connection
+Falls back to TCP if UDP fails
+
+UDP BENEFITS
+Better latency
+Better reliability
+
+TCP BENEFITS
+Better compatibility
+High connection success rate
+
+RDP SHORTPATH TYPES
+
+1.MANAGED NETWORK
+Uses private connection:
+ExpressRoute
+Site-to-Site VPN
+Direct UDP connection
+
+METHODS
+1.Enable UDP listener + inbound port
+2.Use STUN protocol (no inbound port required)
+
+2.PUBLIC NETWORK
+Uses public internet
+Types:
+a) Direct UDP using STUN
+b) Relayed UDP using TURN
+
+IMPORTANT
+Managed network requires UDP listener
+Default UDP Port = 3390
+Can change to unused port
+
+RDP SHORTPATH CONFIGURATION
+Host Pool → Networking → RDP Shortpath
