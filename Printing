@@ -1,0 +1,112 @@
+CONNECTION FLOW OF NETWORK PRINTING
+1. User sends print request from application
+2. Request goes to Printer Driver & GDI
+3. Driver converts data into printer-readable format
+4. Job sent to Print Spooler (spoolsv.exe)
+5. Spooler stores files in:
+C:\Windows\System32\spool\PRINTERS
+6. Spool files:
+.SPL → Print data
+.SHD → Job settings
+7. Spooler checks local/network printer
+8. For network printer, Point Provider (Win32spl.dll) is used
+9. Job sent to remote Print Spooler using RPC over TCP 135
+10. Print Server receives/manages job
+11. Print Processor & Driver process job
+12. Print Monitor sends job to printer
+13. Printer prints document
+14. Status returned to server/client
+15. Spool files deleted automatically
+
+PRINT DRIVERS
+Software translating Windows output into printer language
+Provided by printer manufacturer
+TYPES OF PRINT DRIVERS
+TYPE 3 (LEGACY)
+Path:C:\Windows\System32\spool\drivers\x64\3
+Features:
+Vendor provided
+Complex management
+More storage
+More crash prone
+TYPE 4 (MODERN)
+Path:
+C:\Windows\System32\spool\V4Dirs
+Features:
+Modern class drivers
+Windows Update provided
+Simplified management
+Less storage
+More stable
+
+PRINT DRIVER ISOLATION
+Isolates print drivers in separate process/container
+Used for troubleshooting crashes
+PROCESS
+PrintIsolationHost.exe
+TYPES
+NONE-No isolation
+SHARED-Drivers isolated in shared container
+ISOLATED-Separate container for each driver
+
+CLIENT SIDE RENDERING
+Print job rendered on client computer
+SERVER SIDE RENDERING
+Print job rendered on print server
+
+POINT AND PRINT
+Allows users to connect network printer without manual driver install
+Downloads driver automatically from print server if missing locally
+
+PRINT NIGHTMARE
+Vulnerability in Print Spooler
+Allowed remote code execution & privilege escalation
+
+PATCH
+Microsoft patch released:
+July 6 2021
+Aug 10 2021
+
+RDITA PATH
+HKLM\Software\Policies\Microsoft\Windows NT\Printers\PointAndPrint
+
+PRINTBRM.EXE
+Used for printer migration/backup/restore
+
+REMOTE DESKTOP EASY PRINT
+Previously called TS Easy Print
+Redirects local printers in RDP session
+
+PRINT DRIVER COMPONENTS
+
+1.RENDERING
+Converts graphics into printer format
+
+2.CONFIGURATION
+contains Printer settings/UI/features
+
+ENHANCED POINT AND PRINT
+Updated printer sharing mechanism
+Allows printing without vendor driver download
+
+PRINT FILTER PIPELINE
+Processes print data before reaching printer
+SERVICE
+printfilterpipelinesvc.exe
+FUNCTIONS
+Format conversion (XPS → PCL)
+Apply settings
+Render pages
+
+WSD (WEB SERVICES ON DEVICE)
+Protocol for automatic network printer discovery using plug-and-play
+
+MOPRIA
+Driverless printing standard based on IPP
+
+HARDWARE ID
+Vendor-defined identifier used to match correct driver
+
+PRINTER REDIRECTION
+Maps local printer to remote machine/session
+Allows printing from terminal/RDP session to local printer
