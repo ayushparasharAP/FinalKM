@@ -1,0 +1,65 @@
+ WMI (Windows Management Instrumentation)
+WMI is a Windows management technology used to manage and monitor computers. It provides information about hardware, software, processes, and service performance.
+ Implementation: It is the Microsoft implementation of WBEM (WebBased Enterprise Management) and CIM (Common Information Model) from the DMTF (Distributed Management Task Force).
+ Purpose:
+ Share management info between applications.
+ Helps admins monitor and manage systems locally or remotely.
+# Uses of WMI
+ Hardware and software inventory.
+ System configuration.
+ Event monitoring.
+ Performance monitoring.
+ Registry and file system access.
+ Automation and scripting.
+ Important WMI Basics
+ WMI Service Name: Winmgmt
+ Runs under: svchost.exe
+ Default Startup Type: Automatic
+ Depends on: RPC (Remote Procedure Call)
+ WMI Provider Host: Wmiprvse.exe
+# Key Components
+1. WMI Service (Winmgmt): The main management service.
+2. WMI Control (wmimgmt.msc): The configuration console.
+3. WMI Provider Host (Wmiprvse.exe): Provides system data.
+4. WBEMTest: A testing tool for running WMI queries.
+ WMI Architecture
+1. WMI Consumers: Applications or scripts that request WMI data.
+2. WMI Infrastructure: Contains various components:
+ WMI Core
+ CIM Repository
+ COM / DCOM
+3. WMI Providers: The middle layer between WMI and hardware/software.
+ Three types: SNMP, Registry, and Win32.
+ Acts as an intermediary between WMI objects and the WMI service (Winmgmt).
+4. WMI Managed Object: The actual resource being managed (e.g., Printer, Hard disk, Process).
+ CIM (Common Information Model)
+An objectoriented data model managed by DMTF used to represent hardware, software, network resources, etc.
+# Levels of CIM
+1. Core Classes: All areas of management (represent the managed object).
+2. Common Classes: Specific areas of management that apply across platforms.
+3. Extended Classes: Technologyspecific additions to common classes.
+ WMI Technical Details
+# WQL (Windows Query Language)
+Used to query WMI information regarding the OS, applications, and system components.
+ Example: Select  from Win32_OperatingSystem
+ Example: Select  from Win32_BIOS
+# Key Terms
+ Namespace: A container used to organize WMI classes (e.g., Root\CIMV2, Root\Default).
+ WMI Class: A definition of objects; defines properties, data types, and methods.
+ COM: A languageindependent system that allows software components to communicate.
+ DCOM: An extension of COM that allows communication between remote computers.
+ DCOM Security: Access, Launch, Identity, and Connection policy.
+ Default Permissions: Remote activation and launch are enabled for admins and disabled for standard users by default.
+ Event Tracing and Maintenance
+Event Tracing: Tracking and logging events in Windows. Also known as ETW.
+# WMI & Event Tracing
+Used to record WMI service activity, create WMI logs, and handle event notifications.
+ Wevtutil: A tool to enable WMI event tracing and locate WMI events.
+# Paths and Commands
+ Path to WMI .mof & .dll files: C:\Windows\System32\WBEM
+ Path for WMI Repository: C:\Windows\System32\WBEM\Repository
+ Compile MOF files: Use the mofcomp command to compile deleted classes/subclasses.
+ Register Classes: Use regsvr32 to register classes/subclasses.
+ Troubleshooting Tools: WBEMTest, Console, and PowerShell.
+# WMI Arbitrator
+A component of the WMI service that manages the scheduling and execution of tasks from the WMI client process. It resides in Winmgmt, svchost.exe, etc.
