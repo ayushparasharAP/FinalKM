@@ -1,0 +1,1134 @@
+RDS
+
+2. Where can we check the session redirection event logs on RDCB?
+   Session redirection event logs on RD Connection Broker can be checked in Event Viewer under:
+
+Applications and Services Logs → Microsoft → Windows → TerminalServices-SessionBroker → Operational
+3. Which Role/Feature has NPS Role by Default in RDS?
+   Answer: RDGW
+Reason:
+Remote Desktop Gateway uses NPS (Network Policy Server) by default for authentication and authorization policies.
+4. How many Connection Brokers can be added in Windows Server 2012 R2 RDS HA?
+   Answer: 16 Connection Brokers
+Reason:
+In Windows Server 2012 R2 Remote Desktop Services High Availability deployment, a maximum of 16 RD Connection Broker servers can be added.
+5. What is the extension of UPD profiles?
+   Answer: .vhdx
+Reason:
+User Profile Disks (UPD) in RDS are stored as Virtual Hard Disk files with the .vhdx extension.
+6. What is the recommended trust required for cross domain RDS configuration?
+   Answer: Two way trust
+Reason:
+A Two-way trust is recommended so that authentication and resource access can occur between both domains in Remote Desktop Services deployments.
+7. Difference between Deployment Properties and Collection Properties?
+
+Deployment Properties:
+• Applied to the entire RDS deployment
+• Configured from RDMS deployment level
+• Includes licensing, certificates, gateway settings, etc.
+• Affects all servers and collections
+• Managed globally
+
+Collection Properties:
+• Applied only to a specific session collection
+• Configured inside individual collection settings
+• Includes user sessions, UPD, session limits, remote apps, etc.
+• Affects only selected collection
+• Managed per collection
+8. Security Layer 0 under RDP-TCP Represents?
+   Answer: RDP Security Layer
+Reason:
+Security Layer value 0 under RDP-TCP represents the default RDP Security Layer, where native RDP encryption is used instead of SSL/TLS.
+9. What is the default port for SQL while creating RDS CB HA?
+   Answer: 1433
+Reason:
+Microsoft SQL Server uses port 1433 by default, which is used by RD Connection Broker HA configuration.
+10. Which Type of Certificate would be used in External RDP?
+    Answer: Public
+Reason:
+For external Remote Desktop connections, a Public Certificate issued by a trusted CA is recommended so external clients trust the certificate automatically.
+11. What are the types of RDS CALs and what is the difference between them?
+Types of RDS CALs:
+
+1. Per User CAL
+2. Per Device CAL
+Difference:
+Per User CAL:
+• License assigned to a user
+• One user can access from multiple devices
+• Best for roaming users
+• No strict enforcement by Microsoft
+• Suitable for organizations with many devices per user
+Per Device CAL:
+• License assigned to a device
+• Multiple users can use same device
+• Best for shared workstations
+• Strictly tracked and enforced
+• Suitable for call centers/labs
+12. NLA is dependent on which Windows Binary?
+    Answer: CredSSP.dll
+Reason:
+Network Level Authentication (NLA) depends on Credential Security Support Provider (CredSSP) for authentication before session creation.
+13. Different types of RDS deployment and difference between them?
+Types of RDS Deployment:
+1. Quick Start Deployment
+2. Standard Deployment
+Difference:
+Quick Start Deployment:
+• Used for testing/lab environments
+• All RDS roles installed on single server
+• Faster deployment
+• Limited customization
+• Not recommended for enterprise use
+Standard Deployment:
+• Used for production environments
+• Roles distributed across multiple servers
+• More scalable and secure
+• Full customization available
+• Recommended for enterprise use
+14. Explain RDS connection flow for an external user with all possible RDS ports used during the connection. Also mention the service of each server included in the flow.
+External RDS Connection Flow:
+1. User opens RDP or RD Web URL from internet.
+   Port Used: 443 HTTPS
+2. Connection reaches RD Gateway (RDGW).
+   Service: TS Gateway Service
+   Port: 443
+3. RD Gateway validates policies using NPS.
+   Service: Network Policy Server (NPS)
+4. RD Gateway contacts RD Connection Broker (RDCB).
+   Service: Session Broker Service
+   Ports: 443 / RPC 135
+5. RDCB checks existing sessions and collection mapping.
+6. RDCB redirects user to correct Session Host Server (RDSH).
+   Service: Remote Desktop Services
+   Port: 3389
+7. User session established with Session Host through Gateway tunnel.
+8. If RD Web Access is used:
+   • User first accesses RDWA on port 443
+   • RDWA communicates with RDCB to display resources.
+Ports Used:
+• 443 – HTTPS / RD Gateway / RD Web
+• 3389 – RDP
+• 135 – RPC Communication
+• 1433 – SQL for RDCB HA
+• 445 – SMB / Profile access
+15. Name the VDI host server which manages Pooled and Non-Pooled VDIs?
+    Answer: RD Virtualization Host (RDVH)
+16. What is SecurityLayer and MinEncryptionLevel in RDP Listener [Various values and meanings]?
+SecurityLayer Values:
+0 – RDP Security Layer
+1 – Negotiate
+2 – SSL/TLS Security Layer
+MinEncryptionLevel Values:
+1 – Low
+2 – Client Compatible
+3 – High
+4 – FIPS Compliant
+Explanation:
+• SecurityLayer determines which security protocol RDP uses.
+• MinEncryptionLevel determines encryption strength for RDP sessions.
+17. Do we need WID database in RD HA environment?
+    Answer: FALSE
+Reason:
+High Availability RD Connection Broker uses SQL Database, not WID (Windows Internal Database).
+18. What all Services are responsible to display Web Applications on RD Web Access page?
+    Answer: RD Web Access + RD Connection Broker Services
+Reason:
+RD Web Access displays resources while RDCB provides published RemoteApps and session details.
+19. Service Responsible for Showing Deployment Overview
+    Answer: RDMS
+Reason:
+Remote Desktop Management Service (RDMS) is responsible for showing deployment overview in Server Manager.
+20. Please mention which port is responsible for RDP?
+    Answer: 3389
+21. On Which Port Gateway Accepts the Connections?
+    Answer: 443
+22. If customer is unable to purchase License for his deployment, we can offer him to remove Grace Period key from Registry?
+    Answer: FALSE
+Reason:
+Removing Grace Period registry keys to bypass licensing is unsupported and violates Microsoft licensing policies.
+23. The profiles mapping over UPD in RDS Session use protocol
+    Answer: SMB
+Reason:
+User Profile Disks (UPD) are stored on file shares and accessed using SMB protocol.
+
+
+Printer
+What all information available in a Print Management Console.?
+(2 Points)
+The Print Management Console is a Microsoft tool used to manage printers and printing
+services in a network.
+It provides information about:
+1. Printers – View installed printers and their status.
+2. Print Queues – Check pending or failed print jobs.
+3. Printer Drivers – Manage installed printer drivers.
+4. Ports – Configure printer ports and connections.
+5. Print Servers – Monitor and manage print servers in the network.
+It is commonly used in Windows Server environments for centralized printer management.
+2.Point and Print Restrictions is ?
+(1 Point)
+1. Restricting User to install Printer Driver and configuration Specified Print Servers
+2. Restricting Driver Update on Print Server
+3. Download Drivers from any Print Server
+4. Print from a specific printer
+Ans: 1.
+3.What is the difference between Type-3 and Type-4 Printer Drivers? What is TS Easy
+Print?
+(4 Points)
+V3 V4
+Legacy drivers Modern drivers
+These are provided by the vendor Comes bundled with the OS
+Updated are given by the vendors Updates through Windows update
+Printer management is complex, including 32/64bit
+different drivers for printer models (model specific) Printing management is simplified as
+wide range of
+printers are supported due to common PDLs(printer
+description language) PCL, XPS, PS
+Uses more space due to MS config files and plug ins. Uses less space.
+Type 3 drivers are developed by printer manufactures Microsoft works with IHV
+(Independent hardware vendors)
+to develop V4 drivers
+V3 are more prone to crashing V4 are more stable due to reduced size
+Does not support future devices. Can support future devices that haven't been released
+yet
+4.Client Side Rendering works for Printer which is configured on Client via IP Address. Is
+this ?
+(1 Point)
+TRUE
+FALSE
+Ans: True
+5.In Which Version of Server OS, V4 Drivers are introduced?
+(1 Point)
+2008R2
+2012
+2012R2
+2003
+Ans: 2012
+6.What is Rendering? What is Client-side rendering? What is server-side rendering? Where
+can you enable/disable?
+(4 Points)
+Rendering is the process of converting a document or print job into a printer-readable
+format before printing.
+In Client-Side Rendering, the print job is processed on the client computer before being sent
+to the printer.
+Advantages:
+• Reduces load on print server
+• Faster printing for remote sessions
+• Better for network bandwidth optimization
+In Server-Side Rendering, the print job is processed on the print server and then sent to the
+printer.
+Open Print Management > Print Servers → Printers > Right-click the printer → Properties
+Open the Sharing tab > Check or uncheck > Render print jobs on client computers
+7.Explain Windows Printing Architecture for Network printing.
+(5 Points)
+When we give a command to print on any application, if the data is only a plain text it goes
+to Winspool.DRV which is a called client spooler interface. If the data to be printed contains
+graphics then the request goes to GDI.
+GDI converts the data to a form which is understood by the Winspool.DRV
+After conversion request goes to Winspool.DRV
+Winspool.Drv is a client interface for Spooler. It calls this poorer service (spoolSv.exe)
+Spurious service is a crucial component of Operating system that manages all print jobs.
+Here The printing process actually starts.
+Sports service calls spoolSs.Dll Which does the job of routing the print job to appropriate
+print provider.
+Router determines which printer provided to call based on the printer name or hand. rather
+than calls the required print provider.
+Print providers are implemented as dynamic link library DLL
+There are two types
+1) Localspl.dll
+2) Win32spl.dll
+Localspl.dll handles print jobs for printers connected locally As the name suggests.
+Win32spl.dll It handles prints jobs for printers on the Windows Network servers.
+Print providers direct Print jobs to their correct destination Whether those destinations are
+local printer or printer on a network.
+The print job is then directed to print processor.
+Print processor is where conversion from emf enhanced meta file to row format takes place
+example winprint dll
+Print processor converts the spooled data of a print job into a format that a printer monitor
+can send to the printer. This conversion is necessary because applications generate pin data
+in various formats and printer requires specific data formats to print
+Print processor also reads this pool file, performs necessary conversion operations on data
+stream and then writes converted data back to Spooler. Print processor also handles
+applications requests to pause resume cancel print job. After converging the Print processor
+sends data to print monitor. Print monitor is responsible for assigning the jobs to port To
+Port which is connected to the printer This is a COM port.
+The processed printed job data is sent from print spooler to printer. It ensures that the data
+is transmitted correctly and reliably to the printer.
+Printer is the final destination and physical device that produces hard copy output.
+In network printing router calls the print provider when 32Spl.Dll from where the print job is
+directed to spooler service spoolsv. exe off the machine which has the printer connected it
+Locally From there the print job Processes as it does in case of local printing. The print job is
+directed to schooler service over port TCP135 RPC.
+9.Can we redirect client side printer on Connection Broker without using TS Easy print
+?
+(1 Point)
+TRUE
+FALSE
+Ans: True
+10.What is Printer Driver Isolation and Explain its types?
+(3 Points)
+Ans: Print driver isolation is what allows administrators to troubleshoot issues with the
+printer driver by isolating the printer driver in a separate container.
+It is of 3 types:
+1) None: No print driver is isolated.
+2) Shared: Print drivers are isolated but shared. Multiple print driver can be isolated
+in shared container.
+3) Isolated: Print driver is isolated in a separate container.
+12. What was print spooler vulnerability? What did Microsoft introduce to enhance the
+security for the same? Why the design change affect only point and print with Type-3
+drivers ?
+(5 Points)
+Ans: Print night mare is a known vulnerability in the print spooler service which allowed
+attackers to execute code remotely and leverage privileges locally.
+To fix this vulnerability, Microsoft released update on 6th July 2021 introducing the registry
+key "RestrictDriverInstallationToAdministrator" (RDITA). This value was default to zero
+(disabled) until Microsoft released update on August 10th 2021, where this value was
+defaulted to one (enabled).
+This setting/configuration (RDITA) restricted standard users from installing the printer driver
+from print server.
+13.What is difference between .spl and .shd file?
+(2 Points)
+Ans:
+.SPL File .SHD File
+Stores the actual print job data Stores shadow information about the print job
+Contains document content to be printed Contains job settings and metadata
+Usually larger in size Usually smaller in size
+Created by Print Spooler during printing Helps manage and recover print jobs
+Both files are created in the spool folder of Windows Server during the printing process.
+14.Which driver is responsible for redirection over RDP?
+(1 Point)
+rdp.sys
+Umrdp.dll
+rdprd.sys
+UserModeRedirector.sys
+Ans: RDP.sys
+15.Process name of print isolation?
+(1 Point)
+Ans: PrintIsolationHost.exe
+16.What is Point and Print feature? Explain various methods of Printer Installation: Point
+and Print.?
+(3 Points)
+Ans:
+It is a feature is what allows a user to print to a remote printer or a network printer without
+having to manually download and install the printer driver on the machine. Point and print
+checks for an existing printer driver on the local driver store and if it does not find a
+compatible driver it downloads and installs the driver from the print server itself.
+Methods:
+Using the print management console
+Using the GPO
+And using Active directory
+17.What is the name of default print processor?
+Ans: WinPrint.
+System Component
+3.Which service is essential for WMI to function?
+(3 Points)
+Ans: Winmgmt
+In Windows Server, this service provides management and monitoring information for
+Windows systems, applications, and devices.
+
+4.How does COM/DCOM relate to WMI?
+(3 Points)
+Ans:
+COM (common object model) is a language independent, object-oriented system that allows
+the components to interact/communicate with other components locally.
+DCOM is an extension to COM which allows the communication between the components
+remotely.
+DCOM allows the administrators to remotely query a system for information and managing
+the system.
+
+5.What are WMI providers?
+(3 Points)
+Ans:
+WMI providers are intermediary between the WMI objects and the WMI service. WMI
+provider hosts a separate container for each query or instance. Ther service name of host
+provider is WMIPRVSE.exe.
+
+6.What Windows logs are used for WMI troubleshooting?
+(3 Points)
+ETW - event tracing for windows helps in generating logs for WMI.
+Event Notification support
+Security support
+Query language support.
+Scripting access to performance counter data.
+WMI activity logs like event ID 5858 which contains the namespace information etc.
+
+7.What is a WMI namespace?
+(3 Points)
+WMI namespace is a programing objects that defines the scopes for a set of classes and
+objects. It is container where WMI provider classes are defined. They are stored in static
+form, and they used to organize classes.
+Example: Root/CIMv2 and Root/Default
+
+8.What tools can be used to query or troubleshoot WMI?
+(3 Points)
+Using the console winmgmt.msc
+WMI query using Powershell
+WBEMTest
+These tools can be used to troubleshoot WMI.
+
+9.What is the WMI arbitrator?
+(3 Points)
+WMI arbitrator is a component of the Windows management Instrumentation services
+(winmgmt) that manages scheduling and execution of tasks received from WMI client
+process. It resides in winmgmt svchost.exe. Implemented as following singleton instance:
+wbemcore!cwmiArbitrator: :m_pARB.
+It tracks queries and incoming client requests as tasks of object type: wbemcore!cWMItask().
+
+10.What is a WMI class?
+(3 Points)
+
+11.Where is the WMI repository located?
+(3 Points)
+Class: definition of objects classes defines properties, their data types, methods, association
+and qualifiers for both properties of objects and class as whole. It is a blueprint of objects
+and instances.
+C>Windows>System32>Webem> repository
+
+12.Give example for WMI local query and Remote query
+(3 Points)
+Local query:
+open wbemtest tool > connect
+We need to specify the namespace and then connect
+Eg: root\default
+Query example: Select * from Win32_operatingsystem
+Remote:
+Similarly like the local query Open wbemtest tool > connect
+we need to specify the HOSTNAME of the remote system
+\\hostname\root\default
+then query
+Select * from Win32_operatingsystem
+What are the 2 major ports used for WINRM communication?
+(1 Point)
+Ans. 5985 and 5986
+What is COM & DCOM ? What is the command to launch DCOM configuration tool?
+Default permissions for DCOM?
+(5 Points)
+Ans. COM (Component Object Model) is a platform-independent, distributed objectoriented system to create software components in a binary standard which can interact.
+1. COM basically functions as a translator and translates to binary standards.
+2. COM defines how objects work over a distributed environment.
+3. COM promotes re-use of software components from different vendors.
+4. A COM application usually consists of an executable file and additional components
+such as dll files.
+DCOM: DCOM is an extension of COM, which allows access to the software components and
+objects located on a different computer, a remote computer or even on the internet.
+DCOM has four aspects of security:
+1. Access Security
+2. Launch Security
+3. Identity
+4. Connection Policy
+Dcomcnfg
+Enabled
+What is Event Forwarding in Windows? What are the ways events can be forwarded to the
+collector? Explain each ?
+(5 Points)
+Ans. Windows supports event forwarding, allowing you to collect and forward events from
+remote computers to a central location.
+There are 2 types of event forwarding:
+1. Collector Initiated (Pull)
+2. Source Initiated (Push)
+• Collector Initiated → With the collector initiated subscription, the collector will have
+to establish outbound WinRM connection and pull events from the clients.
+• Source Initiated → With the source initiated subscription, the collector will have to
+face incoming connection from the clients.
+What are WMI Classes, Instances and Namespaces? WMI Namespaces found by default in
+Newly Installed OS? Command to repair WMI repository?
+(5 Points)
+1. Instances - WMI objects are instances of WMI classes
+2. Namespaces -
+Namespace is a programming object that defines the scope for a set of classes
+and instances.
+a. It is essentially a container or environment where WMI provider classes are
+defined and managed.
+b. Namespaces are used to organize classes that represent different managed
+environments.
+c. Provides a hierarchical organization of classes.
+3. Classes - classes represent various entities such as hard disk drives (HDDs),
+applications, network resources, etc.
+a. 3 levels of classes:
+i. Core → Core classes represent managed objects that apply to all areas
+of management.
+ii. Common → Common classes represent managed objects that apply to
+specific areas of management.
+iii. Extended → Extended classes represent managed objects that are
+technology-specific additions to the common classes.
+Root\Default and Root\CIMV2.
+Verify Repository: winmgmt /verifyrepositoryIf
+Salvage Repository: winmgmt /
+Reset Repository: winmgmt /resetrepository
+What are 4 basic components in WMI Architecture? Explain WMI Architecture? What is
+the service name of WMI and what is its startup type?
+(10 Points)
+Ans.
+1. WMI Consumers: WMI consumers and management applications or scripts
+interact with WMI infrastructure. They can perform— i. Query ii. Enumerating
+data iii. Running provider methods.
+2. WMI Infrastructure: It consists of various components—
+1. WMI Core (CIM Object Manager (CIMOM)): ✓ CIMOM is a component of
+WBEM systems. ✓ It manages CIM objects. ✓ Facilitates interaction between
+WBEM client applications. ✓ Manages CIM repository. ✓ Performs security
+checks to authenticate users for WBEM clients.
+2. CIM Repository / WMI Repository: It is a language-independent database of
+the namespace, classes, objects, and instances within an enterprise
+environment, which are stored in a static form.
+3. COM: Component Object Model (COM) is a platform-independent,
+distributed, object-oriented system that creates binary software components
+which can interact.
+4. DCOM (Distributed Component Object Model): DCOM is an extension of
+COM, which helps locate/interact with components/objects located on a
+different system, remote computer or even on the Internet.
+3. WMI Providers:-
+1. It acts as an intermediary between WMI object and WMI service
+(Winmgmt).
+2. WMI providers host a separate container for each query/instance
+(Wmiprvse.exe).
+3. Providers can be of different types – For example → SNMP Providers,
+Win32 Providers, Registry Providers.
+4. WMI Managed Objects:-
+1. WMI objects are instances of WMI classes.
+2. Each WMI object represents a specific managed resource, such as a
+hardware device, a printer, a piece of software, or a system process.
+3. Managed objects can be of different types – For example → SNMP
+objects, Win32 objects, Registry objects.
+What is the command used to launch WMI Management console?
+(1 Point)
+Ans. wmimgmt.msc
+What is the command to get the WinRM listener configuration ?
+(1 Point)
+Ans. winrm enumerate winrm/config/listener
+What is event viewer? What are different types of events found in event viewer? What is
+the command to launch event viewer?
+(4 Points)
+Ans.
+What is Task scheduler, write down its service name. What are the two types of sessions?
+(3 Points)
+Ans. TASK SCHEDULER:-
+• The Task Scheduler service allows you to perform automated tasks on a chosen
+computer.
+• Task Scheduler monitors the time or event criteria you choose, and then executes the
+task when these criteria are met.
+• Task Scheduler is automatically installed on Windows OS, and is started each time
+the OS is started.
+• It can be run through the Task Scheduler graphical user interface (GUI) or by using
+the command line.
+• In order to view, add, edit or delete scheduled tasks you must be a member of
+administrators, backup operators, or server operators group on the local computer.
+Service name of Task Scheduler → Schedule
+What is the command used to launch WMI tester tool in Windows Server?
+(1 Point)
+Ans. wbemtest
+What is WinRM? What is WMIPrvse?
+(2 Points)
+Ans. WinRM is one component of hardware management feature that manages the
+hardware locally and remotely.
+This feature includes a service that implements the WS-Man (WS-Management) protocol,
+hardware diagnosis and control through keyboard management controllers (BMC) and a
+COM API and scripting objects that allow you to write applications that communicate
+remotely through the WS-Man protocol.
+WinRM is Microsoft’s implementation of WS-Man protocol.
+WinRM provides a secure, efficient way for management applications and scripts to
+communicate with local & remote computers.
+When a server is connected to a BMC that supports the WS-Management standard,
+applications and scripts can use WinRM to communicate directly with the BMC, even when
+the OS is offline (Preboot/post failure).
+SERVICE NAME:
+• WMI Service → Winmgmt
+• WMI Control/ WMI Console → Wmimgmt.msc
+• WMI Provider Host→ WmiprvSE.exe
+• WMI Tool/ Tool to check WMI Instances→ WBEMTest
+What is MMC ? What is its purpose?
+(2 Points)
+Ans. • MMC is a Windows utility which provides a unified interface to the system
+administrator and advanced users to configure and manage system computers.
+• MMC hosts administrative tools also known as snap-ins to display different
+components of Windows settings.
+• MMC could also be utilized to manage and configure remote computers using WSManagement Protocol.
+service name of MMC - mmc.exe
+Azure Virtual Desktop (AVD)
+1. What is AVD? Explain the connection flow of AVD with diagram.
+AVD- Azure virtual desktop is a desktop and application virtualization service which runs on
+Azure. AVD
+delivers a full windows experience with Windows client or Windows Server OS. Single &
+Multi session
+compatibility You can assign a machine to a single user by using single session or use multi
+session for
+scalability.
+Prerequisites for creating AVD:
+1. An Azure account with an active subscription.
+2. A supported Identity Provider (Entra ID, Active Directory).
+3. A supported O.S. for session-host virtual machines.
+4. Network Connectivity (VNET).
+5. Appropriate license.
+6. Windows App.
+Connection flow for AVD Entra-Joined:
+Note: AVD communication happens on port TCP 443 for all the communications except RDP
+short path as it
+uses UDP port 3478 for the communication.
+1. Session host maintains permanent outbound connection to RD Broker.
+2. User requests feed using Windows app or web browser.
+3.
+(a) User authenticates with AAD and gets AAD Token.
+(b) User presents AAD token to RD Web.
+(c) RD Web queries RD Broker (with AAD token) for resources.
+1. RD Broker checks with the Resource Directory for Geographical Database.
+2. The Geographical Database contains the connection files (.rdp) and icons for every
+resource that
+the user has been provisioned.
+3. RD Broker Service returns the RDP files and application icons to the web service.
+4. RD Web Service returns this information to the user’s device.
+4. User initiates connection using the windows app.
+(a) The remote session begins with a connection to Azure Front Door, which provides the
+global entry
+point to AVD.
+(b) Azure Front Door (AFD) directs the connection to the Gateway Service.
+(c) Gateway Service queries the Broker Service for session host (with token).
+1. The broker orchestrates the connection between users device and the session host.
+(a) The broker service returns the session host to the same Gateway service.
+2. Depending on the configuration and available network protocols, session connection is
+made using
+as per below:
+(a) Reverse Connect Transport - After both client and session host connected to the gateway
+service,
+it starts relaying the RDP traffic using Transmission Control Protocol (TCP) between the client
+and
+session host.
+(b) RDP Short path - A Direct User UDP based transport is created between the users device
+and the
+session host, bypassing the gateway service.
+Note - Reverse Connect Transport is the default connection type.
+2. What is host pool? Explain its types?
+Host Pool: A host pool is a collection of one or more identical virtual machines called session
+hosts that
+deliver desktops and applications to users.
+A host pool can be of two types:
+1. Personal - Where each session host is assigned to provide an individual user. Personal host
+pool
+provide dedicated desktops to end-users that optimize environments for performance and
+data
+separation.
+2. Pooled - Where user sessions can be load balanced to any session host in the host pool.
+There can
+be multiple different users on a single session host at the same time.
+3. What is application group? Explain its types.
+Application Group: An application group is a logical grouping of applications that are
+available on session
+hosts in a host pool.
+Two types of application group:
+1. Desktop Application Group (DAG) - Users access the full Windows desktop from a session
+host.
+Available with pooled or personal host pools.
+2. RemoteAPP Application Group (RAG) - Users access individual applications you select and
+publish to
+the application group. Available with pooled host pools only.
+4. What is the default limit for number of supported application group per AAD tenant?
+500
+5. What is the command to check the status of the sxs listener?
+QWINSTA
+6. What are the eligible licenses for AVD?
+RDS CALs from license server are required for RDS licensing on AVD with Server OS.
+Microsoft License (E3, E5) is sufficient for AVD running client OS.
+7. What are the AVD agents?
+AVD Agents: AVD agent acts as the intermediate communicator between the service and the
+virtual
+machines, enabling connectivity.
+There are 4 AVD agents:
+1. Remote Desktop Agent Boot Loader - The agent bootloader is the executable that loads
+the agent.
+2. Remote Desktop Services SxS Network Stack - It is responsible for maintaining connection
+with the
+RD Broker service and Gateway, it also listens for incoming connection requests.
+3. Remote Desktop Service Infrastructure Agent - It is responsible for checking
+communication
+between AVD service and session hosts (VM).
+4. Remote Desktop Service Infrastructure Geneva Agent - It is a monitoring agent which
+monitors the
+health of the other agents.
+8. What are the AVD built-in roles?
+Owner
+Contributor
+Reader
+Operator
+9. What are the types of cloud service model? AVD falls under which service model.
+There are 3 types of Cloud service models:
+1. Infrastructure as a Service (IaaS)
+2. Platform as a Service (PaaS)
+3. Software as a Service (SaaS)
+AVD Falls under the Software as a Service Model.
+10. What is the difference between RDS and AVD?
+Difference between AVD and RDS:-
+Object Comparison:
+RDS | AVD
+1. RDS is Session-based or Virtualization based deployment and AVD is Tenant based
+deployment.
+2. Session hosts will be added in Collection in RDS but AVD uses Host pool
+3. RDS uses published desktop and AVD uses Desktop App Group (DAG).
+4. RDS uses Published remote apps but AVD uses Remoteapp Application group
+5. Windows Server OS is used with session host role for RDS but AVD can use client OS and
+Server OS
+AVD extra differences:
+1. Image Composition
+2. Windows Desktop Search Optimized
+3. Windows Defender optimized
+4. No server manager
+5. No support for single box deployment
+11. What are the Microsoft managed components in AVD?
+RD Broker
+RD Azure Diagnostics
+RD Gateway
+RD Web
+RD Geographical Database
+RD Resource Directory
+12. Which RBAC role is required to configure start VM on connect?
+Desktop Virtualization Power on Contributor
+13. Mention the PowerShell command to add users to the application group in ARM AVD.
+new-azroleassignment
+14. Which AVD agent is responsible for monitoring the health of AVD?
+Remote Desktop Service Infrastructure Geneva Agent
+15. What are the compulsory RBAC roles for users to connect to AVD?
+Desktop Virtualization User
+Virtual machine User Login
+16. What is drain mode in AVD and how do we enable it?
+Drain Mode: When we enable the drain mode for the session host, it will not allow any new
+connection to the
+session host and only manages the existing connections available on the session host which
+allows
+maintenance without disruption.
+We can enable the Drain mode under Host Pool --> Total machines
+17. Mention the PowerShell command to create a host pool in ARM AVD.
+new-azwvdhostpool
+18. Can I change a host pool from Pooled to Personal?
+No, we cannot change a host pool from pooled to personal
+19. Why is targetisaadjoined key required?
+The targetisaadjoined key is necessary for secure connections when the session host is
+Microsoft Entra ID
+joined. Without this property, the client may attempt the wrong sign in, which may result in
+connection
+failures. By adding targetisaadjoined:i:1 to the host pool RDP properties, the client is
+informed that the
+session host is Entra ID joined
+Also, now it has been replaced with new key: enablerdsaadauth:i:1
+APP Attach And RDP Short Path
+1. What is RDP Short path? Explain its types.
+RDP Short Path: RDP Short Path establishes a UDP-based transport set up a local device,
+Windows app and
+session host in AVD. By default RDP begins a TCP-based reverse connect transport, then tries
+to establish a
+remote session using UDP. If the UDP connection succeeds, the TCP connection drops,
+otherwise TCP
+connection is used as a fallback connection mechanism.
+RDP short path allows you to establish connection between client machine and session host
+directly over
+UDP port and it uses multiple ways to establish a connectivity directly between the client
+machine and
+session host as below:
+By default UDP Port 3390 is used and it can be changed to use a different port.
+RDP Short Path can be used in two ways:
+Managed Networks - Where direct connectivity is established between the client and the
+session host when
+using a private connection, such as a site to site virtual private network (VPN). A connection
+using a managed
+network is established in one of the following ways:
+1. A direct UDP connection between the client device and session host, where you need to
+enable the
+RDP Short path listener and allow an inbound port on each session host to accept
+connections.
+2. A direct UDP connection between the client device and session host, using the Simple
+Traversal
+Underneath NAT (STUN) protocol between a client and session host. Inbound ports on the
+session
+host are not required to be allowed.
+Public networks - where direct connectivity is established between the client and the session
+host when
+using a public connection. There are two connection types when using a public connection,
+which are listed
+here in order of preference:
+1. A direct UDP connection using the Simple Traversal Underneath NAT (STUN) protocol
+between a
+client and session host.
+2. An relayed UDP connection using the Traversal Using Relay NAT (TURN) protocol between
+a client
+and session host.
+2. Mention the key benefits of RDP Shortpath
+RDP Short path enhances Azure Virtual Desktop performance and reliability by enabling a
+direct, UDP-based
+connection between the client and session host.
+RDP Short path reduces the latency and improves the user experience as the low RTT will be
+there as the
+connection is directly made between client and session host.
+Using URCP to enhance UDP achieves the best performance by dynamically learning
+network parameters
+and providing the protocol with a rate control mechanism.
+Higher throughput.
+When using STUN, the removal of extra relay points reduces round-trip time improves
+connection reliability
+and the user experience with latency-sensitive applications and input methods.
+RDP Short path brings support for configuring Quality of Service priority for RDP connections
+through
+Differentiated Services Code Point marks.
+The RDP Short path transport allows limiting outbound network traffic by specifying a
+throttle rate for each
+session.
+HostPool --> Settings --> Networking --> RDP Shortpath
+3. What is MSIX app attach? Mentions few of its features
+MSIX App Attach: MSIX app attach is a way to deliver MSIX applications to AVD virtual
+machine. MSIX App
+Attach is a Microsoft application layering technology which is designed for Azure Virtual
+Desktop and It
+provides us the capability of separating the application from OS and run them separately
+using the MSIX app
+attach where application will be provided to the users at the time of logon and once the user
+logs off,
+applications will be removed from the profile and all the data for the application will be
+moved to user profile
+and no trace will be left on the OS for the running application once user logs off. MSIX app
+attach allows you
+to dynamically attach apps from an MSIX package to a user session.
+Benefits of MSIX App Attach:-
+1. Removes need of repackaging: It uses streaming technology to optimize bandwidth by
+only
+downloading the difference between an existing package and an upgrade.
+2. Creates separation:- The application lives inside a virtual application container which
+ensures strict
+isolation between the application and the OS.
+3. Supports Silent Installation:- Capturing product is performed similarly to MSI packaging.
+MSIX
+supports converting .exe installers and MSI packages unattended.
+4. OS remains Unmarked – Once the application is de-staged, no trace file is left within the
+system, like
+application, VMs, or even traces.
+5. Reduces time as it takes for a user to login.
+6. Reduces Infrastructure requirements and costs.
+4. Explain staging in MSIX.
+Staging: After completing the Expanding process .MSIX package will be converted to .vhdx or
+.cim file using
+file share which we will be hosting the files. after that mounting the created .vhdx or .cim file
+to virtual
+machine or session host is called Staging.
+5. Explain the MSIX package structure with diagram
+MSIX PACKAGE STRUCTURE:
+Application Files
+App Manifest
+App Blockmap
+App Signature
+CodeIntegrity
+Application Files - The Payload files are the application code files and assets when building
+the image. ex:
+Icon.
+App Blockmap.xml - The package block map file is an XML file containing a list of the
+application files
+including indexes, cryptographic hashes for each block of data stored in a package. The block
+file is verified
+and secured with a digital signature when the package is signed.
+App Manifest.xml - The package manifest contains the information needed to deploy, display
+and update the
+MSIX application. The information includes package identity, package dependencies,
+required capabilities,
+visual elements and extensible points (basic properties of files).
+App Signature.pfx - This file is generated when the package is signed. All packages are
+required to be signed
+before you run them (validation).
+Code Integrity
+6. Write the steps from where you can enable Start VM on Connect in AVD
+Enable Start VM on Connect:
+In the Azure portal, search for Azure Virtual Desktop.
+Select Host pools, then choose your target host pool.
+Go to Properties, set Start VM on connect to Yes, and click Save.
+Host pool-->Properties
+START VM ON CONNECT: It lets you reduce costs by enabling users to turn on their session
+host (VM) only
+when they need them. Start VM on connect can be set up for both personal & pooled
+session.
+A RBAC role is needed for this: "Desktop Virtualization Power On Contributor" to AVD
+Service Principal. This
+role is assigned on the Subscription.
+7. Explain de-registration in MSIX
+De-registration: After user logs off from the session and application data saved on the
+machine for the user
+will be moved to user profile and process of moving the data to the user profile will be called
+De-registration.
+8. Can MSIX app attach be used with both persistent and non-persistent virtual desktop
+infrastructures?
+Yes, MSIX app attach can be used with both persistent and non-persistent virtual desktop
+infrastructures.
+9. What is auto scale and how it works?
+Auto Scale lets you scale your session host virtual machines (VMs) in a host pool up or down
+according to
+schedule to optimize deployment cost by turning on and off the session hosts.
+There are below methods of autoscaling to run in the environment:
+Ramp-up: the start of the day, when usage picks up.
+Peak hours: the time of day when usage is expected to be at its highest.
+Ramp-down: when usage tapers off. This is usually when you shut down your VMs to save
+costs.
+Off-peak hours: the time of the day when usage is expected to be at its lowest.
+Dynamic autoscaling is only available in Azure and isn’t supported in Azure Government.
+Scaling plan can be assigned to multiple host pools in the same resource group.
+A host pool can have only one scaling plan assigned to it.
+A scaling plan can have multiple schedules.
+To assign a scaling plan Desktop Virtualization Power On/Off configuration role needs to be
+assigned to
+service principal (Azure Virtual Desktop) at the subscription level.
+10. How many VMs need to be in a host pool for autoscale to work properly?
+At least 1 VM will be required for autoscaling to work properly.
+FSLogix
+1. What is FSLogix? How is it different from other profile solutions?
+FS Logix - FS Logix is a type of user profile solution which enhances and enables a consistent
+experience for
+Windows user profiles in virtual desktop computing environment.
+FSlogix is not limited to virtual desktop environment and could be used on physical desktop
+where a more
+portable user experience is desired.
+Other Profile Solutions v/s FSLogix Profile Solutions
+1. It Uses Copy/Paste to provide the new profile but FSLogix Uses Mount/Unmount to
+dynamically
+attach the profile.
+2. It is Slower to load user profile but FSLogix is faster to load user profile.
+3. It Could be platform limited but FSLogix can be used on any platform (AVD, RDS, Citrix).
+4. It has Limited scalability but FSLogix is Highly scalable.
+5. In this, Office data redirection might be unavailable but In FSLogix Office data redirection
+is available.
+6. Concurrency is not supported in the other profile solutions but concurrency is supported
+in FSLogix
+profile solutions.
+7. It Could be complicated to configure but FSLogix is easy to configure.
+2. Mention few features of FSLogix
+Features of FSLogix:
+1. Roams user data.
+2. Minimize sign in times for VM environment.
+3. It optimize file I/O.
+4. It provide a local profile experience.
+5. Simplify the management of apps and gold images.
+3. How many types of container does FSLogix offer? Explain them
+1. Profile containers - A profile container is a container as the data related to a user's profile,
+which is
+directly stored in the VHD(x). It is a full remote profile solution for non-persistent
+environments and it
+redirects the entire user profile to the remote location.
+The entire profile except redirection.xml is included in the profile container and profile
+container
+includes all the benefits of office containers.
+2. ODFC Container - An ODFC Container is a container type, which is focused on storing
+profile content
+that is unique to Microsoft Office applications. Full form of ODFC is Office Data File
+Container. ODFC
+redirects only areas of the profile that are specific to MS Office apps and ODFC Containers
+are an
+optional configuration.
+A default ODFC container includes:
+Office Activation
+Outlook
+Outlook personalization
+SharePoint
+OneDrive
+Skype for Business (legacy support)
+4. How many types of Profile are available in FSLogix profile container. Explain them
+Profile Types:
+0 (Zero) - Normal Profile behavior.
+1 (One) (Read-Write)- Machine should only be the read-write.
+2 (Two) (Read-Only) - Machine should only be RO. (read-only instance)
+3 (Three)- Machine should try to take the RW (Read-write) role and if it can not, it should fall
+back to a RO
+(Read-only) role.
+5. Do I need to use the ODFC container when using Microsoft 365 applications?
+When we are using FSLogix profile container configuration office 365 data will be available in
+profile container
+for use so no need to configure the ODFC container separately if not required and if we are
+using other profile
+solutions and we want to configure separate container for office applications, then we can
+configure ODFC
+container in FSLogix.
+6. How can we verify that the FSLogix profile is mounted?
+There are 3 ways by which, we can verify if the FSLogix profile is mounted or not.
+We need to check if the local profile folder has been created along with normal folder on the
+below location
+for the logged in user or not. Ex. Local_User
+C:\Windows\Users
+We can open the diskmgmt.msc to check if the FSLogix disk has been created on the
+machine for logged in
+user or not.
+Also, we can access the VHD location which we have configured for FSLogix and check if the
+VHD(x) for that
+user is created or not.
+7. Mention the share level permission/RBAC role required for storage account
+RBAC Role for Storage Account: SMB Share Contributor
+8. Mention and explain the FSLogix agent components
+Agent Components of FSLogix:-
+1. frx.exe - It is a command line utility. The utility is installed to c:\program files\fslogix\apps.
+2. Services:
+A.) frxsvc.exe - Service that communicates with the command line tool, the drivers and
+monitors the
+rules folder for changes. Display name: FSLogix Apps Service
+B.) frxccd.exe - Service responsible for handling cloud cache operations. Display name:
+FSLogix
+Cloud Caching Service
+3. Drivers:
+A.) frxdrv.sys - This driver is responsible for handling file system and registry requests to
+make hiding
+and redirection work.
+B.) frxdrvvt.sys - This driver provides the advanced redirection capabilities for profile and
+ODFC
+containers.
+C.) frxccd.sys - This driver is responsible for handling cloud cache.
+9. Mention the location where the FSLogix logs are stored for both profile and office
+container
+Profile Container - C:\Program Data\fslogix\Logs\Profile
+ODFC Container - C:\Program Data\fslogix\Logs\ODFC
+10. Mention the compulsory policies required for configuring FSLogix
+We need Configure below GPOs:
+Enabled - Set to Enabled and select Enabled
+VHD location - Set to Enabled and specify the path of the file share (Ex.
+\\fileserver.domain.com\fileshare)
+11. Is FSLogix integrated into all Windows operating systems?
+No, FSLogix is not integrated into all Windows Operating systems as we need to download
+the latest version
+file for FSLogix and install it manually on the Session Host.
+12. Is FSLogix logging enabled by default? Mention its registry location
+Yes, FSLogix logging is enabled by default.
+Registry Location - HKLM\software\fslogix\logging
+13. Name the FSLogix group policy templates and explain their role
+FSLogix group policy templates:
+1. FSLogix.admx - %SYSVOL%\Policy Definition
+2. FSLogix.adml - %SYSVOL%\Policy Definition\en-us
+There are 2 ways of configuring the FSLogix- a.) Registry b.) Group Policy
+If we are configuring the FSLogix profile using group policy, we will not have the FSLogix
+configuration option
+available in the group policy console so we need to copy these files from the FSLogix Folder
+which we have
+downloaded and move these files to the above mentioned location to configure the policies
+for FSlogix.
+W365
+3.What is a Provisioning policy?
+(1 Point)
+Ans. an object in the Microsoft Intune admin center that defines how and where Cloud PCs
+are created for users
+4.How many short-term restore points can each Cloud PC have in Windows 365
+Enterprise?
+(2 Points)
+Ans. You can choose to set short-term restore points every 4, 6, 12, 16 or 24 hours. Each
+Cloud PC in the assigned groups has 10 short-term restore points saved at the intervals that
+you define in the user setting.
+5.How can we access the Cloud PCs, mention 2 ways
+(2 Points)
+Ans. Windows App ans Web Portal
+6.Explain and list types of Licenses in W365?
+(3 Points)
+Ans.
+1.W365 Business → Simplifies deployment and is made specifically for use in smaller
+companies (up to 300 seats) who want ready-to-use Cloud PCs with simple management
+options.
+2. W365 Enterprise → Is for larger companies who want unlimited seats for creating Cloud
+PCs. It includes options to Create custom Cloud PCs based on device images that you create,
+with more management options, and full integration with Microsoft Intune.
+3) W365 Government → Is a service that spans across a regulated US Government
+community cloud (GCC) and a public-facing cloud.
+4) W365 Frontline → Helps organizations save costs by providing a single license to provision
+up to three Cloud PCs for non-concurrent use. These are meant for cases where the user
+needs Cloud PC access for a limited time per day.
+5) W365 for Agents (Preview) → Is the compute platform for AI-powered computer-using
+agents.
+7.What is ANC? How many default ANC are allowed?
+(2 Points)
+Ans. ANC (Azure Network Connection) :- ANC are links between Cloud PCs and on-premise
+resources. ANC lets you provision Cloud PCs that are attached to a virtual network that you
+manage.
+• You can have up to 50 ANC per tenant.
+8.Can we resize a W365 Frontline CPC in shared mode?
+(2 Points)
+Ans. No
+9.Explain W365 cloud PC. Mention its Azure and network requirement.
+(5 Points)
+Ans. W365 is a cloud-based Software-as-a-Service (SaaS) that automatically creates a new
+type of Windows Virtual Machine (Cloud PC) for your end users. The Cloud PC lets users
+access Windows 10 or 11 from various devices (like Windows, iOS, and Android).
+W365 offers various solutions to support organizations of all sizes with multiple deployment
+options tailored to specific roles and needs.
+1. License →
+i) Intune Admin (To manage the devices).
+Windows E3, Intune, Microsoft Entra ID P1, and Windows 365 (To use Cloud PC).
+2. Azure Subscription → Active Azure Subscription (Not needed for Microsoft hosted
+network).
+3. Network → i) Microsoft hosted network included. ii) Azure Virtual Network (hybrid
+requires line of sight to DC).
+4. User Identity →
+• Synced or cloud-only uses Microsoft hosted network
+• ii) Synced user = hybrid
+5) Image →
+• Gallery or custom (Gen2) generalization / single
+6) Management →
+• Microsoft Endpoint Manager
+• (Supports SCCM Co-management)
+10.How or from where are Cloud PCs managed once they are provided with Windows 365
+Enterprise?
+(1 Point)
+Ans. via the Microsoft Intune admin center or GP in AAD
+11.What is the difference between Frontline Dedicated and shared license
+(3 Points)
+Ans. W365 Frontline in Dedicated mode:
+• A single license in Dedicated mode: i) Lets you provision up to three Cloud PCs that
+can be used non-concurrently; each assigned to a single user. ii) Provides one concurrent
+session.
+→ Use Case of Frontline Dedicated mode → W365 Frontline dedicated mode is designed
+specifically for workers who need a dedicated Cloud PC but don’t need 24/7 access.
+Frontline Cloud PCs in dedicated mode can be helpful for users who are:
+• On a rotation schedule.
+• Working across time zones and regions.
+• Part-time workers.
+• Contingent staff.
+The maximum number of active W365 Frontline Cloud PC sessions in your organization is
+equal to the number of W365 licenses that you purchased.
+For example, if you purchase 10 licenses, up to 30 Cloud PCs can be provisioned in dedicated
+mode, but only 10 of those Cloud PCs can be active at a given time.
+The active sessions are managed automatically. When a user signs off from their Cloud PC,
+the session is released for another user to start using their Cloud PC.
+W365 Frontline in dedicated mode includes a concurrency buffer to let a tenant temporarily
+exceed the maximum concurrency limit for W365 Frontline Cloud PCs.
+1.The concurrency buffer can be used up to four times per day with a maximum of one hour
+in each instance.
+This hour starts from the moment the tenant exceeded the max concurrency limit.
+W365 Frontline in shared mode :- A single license: • Lets you provision one Cloud PC that
+can be shared non-concurrently among a group of users. • Provides one concurrent session.
+W365 Frontline in shared mode is designed specifically for workers who: • Require access to
+a Cloud PC to perform specialized tasks for a short time during their work day. • Don’t
+require data persistence.
+Use Cases of Frontline Shared Mode :-
+• Customer-facing workers. • External contractors.
+For example, if you assign 10 W365 Frontline shared licenses, 10 Cloud PCs can be
+provisioned for the group.
+• Only a single user can connect to a shared Cloud PC at a given time.
+• When a user signs out from the Cloud PC, all user data is deleted and the Cloud PC is
+released for another user to start using.
+Note: → Concurrency buffer doesn’t exist for a Frontline Cloud PC in shared mode. → With
+Frontline Cloud PCs in shared mode, you can also provide Cloud apps to users instead of the
+full Cloud PC desktop experience.
+NOTE: Frontline Cloud PCs in dedicated mode are prioritized over shared mode in the case
+where you already have provisioning policies created and later add licenses.
+→ When a tenant has both dedicated mode and shared mode provisioning policies and
+additional licenses are added, dedicated mode Cloud PCs are provisioned first.
+→ The concurrency buffer is available for dedicated mode only but is not available for shared
+mode. GPU-enabled Cloud PCs are also excluded from the concurrency buffer.
+Features not yet supported in W365 Frontline:
+• Resize a Cloud PC remote action. • Cross region disaster recovery.
+NOTE: You can confirm your license quantities under Billing → Your Products.
+12.Explain Grace period in W365 CPC
+(2 Points)
+Ans. When a CPC is in a grace period, the user can continue using the CPC for 7 days. After
+the 7-day grace period expires, the user is logged off the CPC. They’ll lose access and the
+CPC will be deprovisioned.
+13.What is the difference between Active and Passive deletion in W365 Cloud PC
+(3 Points)
+Ans. Active deletion in Windows 365 occurs when an administrator or user manually deletes
+a Cloud PC or removes a license while the subscription is active, triggering a 30-day data
+retention period.
+Passive deletion in Windows 365 occurs when a subscription ends or a license remains
+unassigned for an extended period, leading to automatic data deletion within 90 to 180
+days. This differs from active deletion (immediate admin action) by acting as a retention
+grace period rather than an immediate removal of user data and Cloud PC disks.
+14.Differentiate between W365 Business and Enterprise licenses
+(4 Points)
+Ans. Difference between W365 Business and Enterprise:
+Windows 365 Business ||Windows 365 Enterprise
+1. Domain-Join ||Microsoft Entra Join without Azure Virtual Network support||
+Azure AD with the Azure AD Join with Azure support
+2. Policy Manager ||Intune if user is licensed ||GPO and Intune MDM are supported
+3. Monitoring|| Not Supported||Endpoint Analytics, Reporting and Monitoring,
+Service Health and Operational Health Alert
+4. Troubleshooting ||Not Supported ||Microsoft Intune includes Troubleshooting
+blade, Device Management Action
