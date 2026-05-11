@@ -1,0 +1,83 @@
+WinRM is a component of the Windows hardware management feature that manages server hardware remotely and locally.
+ Technology: Remote management technology by Microsoft.
+ Protocol: Uses WS-Management Protocol.
+ Service Name: The name of the WinRM service is WinRM.
+ WS-Management Protocol
+ A SOAP-based protocol used for remote management.
+ Ports:
+ 5985 HTTP (Same network)
+ 5986 HTTPS (Different network)
+ Key Components & Features
+1. WinRM Scripting API:
+ Used by scripts and applications to communicate remotely using WS-Management Protocol.
+ Works as a layer above the WS-Man protocol.
+ Helps manage local and remote systems (obtain system data, manage resources, automate admin tasks).
+2. WinRM.cmd (WinRM.vbs):
+ Command-line management tool for WinRM.
+ Enables admins to get or manage resources.
+3. WinRS.exe:
+ Command-line tool for remote command execution.
+ Uses WS-Management protocol.
+ WinRM Listener
+ service that listens for remote management requests using the WS-Management protocol.
+ Receives and sends management messages between computers.
+ Can use HTTP and HTTPS.
+ Authentication Methods in WinRM
+1. Kerberos: Default mode of authentication when the client is in the domain.
+2. Negotiate:
+ Default mode of authentication when the client is not in the domain.
+ Automatically decides whether to use Kerberos or NTLM.
+ If Kerberos is unavailable, it falls back to NTLM.
+3. Basic Authentication:
+ Username and password are sent to the server.
+ Less secure compared to Kerberos.
+ Disabled by default in WinRM.
+ Recommended to use only with HTTPS.
+4. Client Certificate Based Authentication:
+ Needs to be enabled on both client and server using the WinRM command-line tool.
+ Maximum certificate size supported by WinRM is 16 KB.
+ Event Forwarding
+Used to collect Windows event logs from remote computers to a central server.
+ Types
+Collector Initiated (PULL): Collector server contacts client computers and pulls events from them. (Not preferred because it is not scalable).
+Source Initiated (PUSH): Collector will wait for incoming connections from the clients. (Requires policy deployment to clients to point to the collector).
+Common Requirements
+Subscription on the Collector Server.
+WinRM service enabled on both Client and Server.
+The account used to create the subscription needs "Event Log Readers" permissions.
+Service Name: Windows Event Collector service name is Wecsvc.
+
+MMC (Microsoft Management Console)
+Admin console for Windows management.
+Service name: mmc.exe.
+Examples of MMC Snap-ins: Event Viewer, Disk Management, Group Policy, Shared Folders.
+Task Scheduler
+Windows feature used to automate tasks based on time, events, or system actions.
+ Service Name: Schedule.
+ Main Components of TS
+1.Triggers: Decide when a task will start (e.g., At logon, At startup).
+2.Actions: Define what work the task will perform (e.g., Run a program, execute script).
+3.Principals: Define the user/security account under which the task runs (e.g., Admin, System Account).
+4.Settings: Control how the task behaves (e.g., Stop task after certain time, restart if failed).
+ Types of Triggers
+ Time-based: Runs tasks at a scheduled time.
+ Event-based: Runs task when a specific event occurs.
+ Multiple Triggers:more than one trigger (e.g., Run at startup AND every Sunday at 9 PM).
+ MSI (Windows Installer)
+Windows installation and deployment technology.
+ Features: Transactional installation, Self-healing, Patch management, Custom installation.
+ Service Name: msiserver
+ Display Name: Windows Installer
+ Executable: msiexec.exe
+ Path: C:\Windows\System32
+ File Extensions
+ .msi Installer database
+ .msm Merge module
+ .msp Patch
+ .mst Transform
+ Requirement for MSI Package: Certificate (.pfx)
+ WinRM Commands
+1. winrm quickconfig: To configure WinRM for the first time.
+2. winrm e winrm/config/listener: To check listeners.
+3. winrm get winrm/config: To view the configuration.
+4. winrm set winrm/config/client/auth @{Basic="true"}: Used to change or set authentication types.
