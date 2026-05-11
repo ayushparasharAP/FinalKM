@@ -1,19 +1,19 @@
 CONNECTION FLOW OF NETWORK PRINTING
 1. User sends print request from application
 2. Request goes to Printer Driver & GDI
-3. Driver converts data into printer-readable format
+3. Driver converts data into printer-readable format windspool.drv
 4. Job sent to Print Spooler (spoolsv.exe)
 5. Spooler stores files in:
 C:\Windows\System32\spool\PRINTERS
 6. Spool files:
 .SPL → Print data
 .SHD → Job settings
-7. Spooler checks local/network printer
+7. Spooler checks local/network printer spoolss.dll
 8. For network printer, Point Provider (Win32spl.dll) is used
 9. Job sent to remote Print Spooler using RPC over TCP 135
 10. Print Server receives/manages job
-11. Print Processor & Driver process job
-12. Print Monitor sends job to printer
+11. Print Processor & Driver process job emf to raw file
+12. Print Monitor assigns ports sends job to printer 
 13. Printer prints document
 14. Status returned to server/client
 15. Spool files deleted automatically
@@ -110,3 +110,12 @@ Vendor-defined identifier used to match correct driver
 PRINTER REDIRECTION
 Maps local printer to remote machine/session
 Allows printing from terminal/RDP session to local printer
+
+HKEY_CURRENT_USER\Software\Microsoft\Windows NT\CurrentVersion\Devices list all printers installed
+HKLM\SYSTEM\CurrentControlSet\Control\Print\Printers - stores info on locally attached printers
+
+Add printer add/install from print server
+From printers & scanners(from windows setting)
+UNC path
+Drag & Drop
+Right click
