@@ -1,0 +1,190 @@
+Azure & Microsoft URLs
+Azure Portal
+portal.azure.com
+Microsoft 365 Admin Center
+admin.microsoft.com
+
+Azure Hierarchy
+Management Group
+   ↓
+Subscription
+   ↓
+Resource Group
+   ↓
+Resources
+
+IAM- access and identify management and Entra id- unique identifier
+Command to Check Domain Joined / Hybrid Joined
+dsregcmd /status
+Checks:
+Azure AD Joined
+Hybrid Azure AD Joined
+Domain Joined status
+
+How to Check Port 3389 Connectivity
+Test-NetConnection -ComputerName machinename -Port 3389
+Short form:
+tnc machinename -Port 3389
+
+Three Ways to Deploy AVD
+1. Azure Portal
+2. Azure PowerShell
+3. Azure CLI
+
+Microsoft Managed Components in AVD
+1. Web Access
+2. Gateway
+3. Broker
+4. Diagnostics
+5. Licensing
+
+
+If Session Host is Unavailable / Invalid in Host Pool
+Resolution
+Reinstall:
+1. Remote Desktop Agent
+2. Geneva Monitoring Agent
+3. Bootloader Agent
+AVD Registration Token Validity
+Registration token validity
+90 days
+Recommendation:
+VM should periodically come online to maintain registration.
+
+
+Can Customer Use Windows Server 2025 on AVD?
+Answer
+Yes, if supported by Microsoft and properly licensed.
+
+RDS Deployment Types
+1. Quick Start Deployment
+2. Standard Deployment
+
+
+RD Connection Broker Database in Server 2016
+Database used:
+WID (Windows Internal Database)
+
+
+Clipboard / Copy-Paste Restriction in RDP
+Method 1
+From RDP client:
+Local Resources → Uncheck Clipboard
+Method 2
+Group Policy / Registry:
+HKLM\Software\Policies\Microsoft\Windows NT\Terminal Services
+Policy:
+Disable Clipboard Redirection
+
+
+SPL & SHD Files
+SPL File
+Contains actual print data.
+SHD File
+Contains metadata/shadow information.
+
+
+Common Gateway Monitoring Information
+1. Volume of incoming & outgoing traffic
+2. Gateway uptime/downtime
+3. Service health
+4. Failover events
+5. Active sessions & connection counts
+6. Source & destination IP addresses and ports
+7. Blocked/allowed requests
+8. Firewall events
+
+
+WMI / WBEM Notes
+WBEM Path
+C:\Windows\System32\wbem
+
+MOF Files
+MOF
+Managed Object Format.
+Used for:
+Defining WMI classes and namespaces.
+Location:
+C:\Windows\System32\wbem
+
+Difference Between winmgmt & wmiprvse
+winmgmt
+Main WMI service.
+Handles WMI infrastructure and repository.
+Service name:
+winmgmt
+wmiprvse.exe
+WMI Provider Host process.
+Executes WMI providers separately.
+
+
+Relationship Between WinRM & WMI
+WMI can use WinRM for remote communication.
+Both can also work independently.
+
+Common Information Available in WMI Monitoring
+1. Incoming/outgoing traffic
+2. CPU & hardware monitoring
+3. Disk/storage monitoring
+4. Performance monitoring
+5. Event monitoring
+
+FSLogix Service
+Service name:
+frxsvc
+
+FSLogix Profile Container
+Stores user profile inside:
+VHD/VHDX
+Mounted during logon.
+
+URL to UNC Conversion
+https://storageaccount.file.core.windows.net/fileshare
+Converted to:
+\\storageaccount.file.core.windows.net\fileshare
+Forward slash replaced with backward slash.
+
+SMB File Share Port
+445
+SMB Permissions for Azure File Share
+1. SMB Share Contributor
+2. NTFS permissions
+3. Write access
+FSLogix Version Command
+frx version
+On-Prem FSLogix Setup
+Scenario:
+1 DC
+1 Session Host
+ADMX Path
+\\domain\SYSVOL\domain\Policies\PolicyDefinitions
+ADML Path
+\\domain\SYSVOL\domain\Policies\PolicyDefinitions\en-US
+
+MSIX vs MSIX App Attach
+MSIX
+Application packaging format.
+MSIX App Attach
+Dynamically attaches MSIX apps to AVD session hosts.
+Requirement of MSI Package
+1. Windows Installer package
+2. Silent install support
+3. Administrative privileges
+4. Product/version codes
+
+Cloud PC Troubleshooting
+1. Verify user license
+2. Check licensing assignment
+3. Verify security group membership
+4. Check AD connectivity
+5. Verify provisioning status
+6. Check required URLs are whitelisted
+
+Situations for Cloud PC Reprovisioning
+1. Testing different configurations
+2. Machine corruption/issues
+3. Fresh environment requirement
+4. Persistent troubleshooting
+
+
+5. Resetting Cloud PC experience
